@@ -1,11 +1,14 @@
 /* eslint-disable prettier/prettier */
+import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { IsString, MinLength } from 'class-validator';
 
 export class LoginDto {
-  @IsEmail()
-  email: string;
+  @ApiProperty()
+  @IsString()
+  userName: string;
 
+  @ApiProperty()
   @Transform(({ value })=> value.trim())
   @IsString()
   @MinLength(6)

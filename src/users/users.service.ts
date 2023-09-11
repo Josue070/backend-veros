@@ -15,7 +15,7 @@ export class UsersService {
     return this.userRepo.save(createUserDto);
   }
 
-  findOneByEmail(email: string) {
-    return this.userRepo.findOneBy({ email });
+  findOneByuserName(userName: string) {
+    return this.userRepo.findOneBy({ userName });
   }
 }

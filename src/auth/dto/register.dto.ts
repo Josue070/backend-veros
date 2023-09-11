@@ -1,15 +1,18 @@
 /* eslint-disable prettier/prettier */
+import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsString, IsEmail, MinLength } from 'class-validator';
+import { IsString, MinLength } from 'class-validator';
 
 export class RegisterDto {
+  @ApiProperty()
   @IsString()
-  @MinLength(1)
+  userName: string;
+
+  @ApiProperty()
+  @IsString()
   name: string;
 
-  @IsEmail()
-  email: string;
-
+  @ApiProperty()
   @Transform(({ value })=> value.trim())
   @IsString()
   @MinLength(6)

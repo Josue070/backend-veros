@@ -6,7 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix('verosApi/v1');
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -24,7 +24,7 @@ async function bootstrap() {
     .addTag('Auth')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('docApi', app, document);
   await app.listen(3000);
 }
 bootstrap();

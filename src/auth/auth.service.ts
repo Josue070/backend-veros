@@ -15,20 +15,20 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
-  async register({ name, email, password }: RegisterDto) {
-    const user = await this.usersService.findOneByEmail(email);
+  async register({ userName, name, password }: RegisterDto) {
+    const user = await this.usersService.findOneByuserName(userName);
     if (user) {
       throw new BadRequestException('El usuario ya existe en la base de datos');
     }
     return await this.usersService.create({
+      userName,
       name,
-      email,
       password: await bcryptjs.hash(password, 10),
     });
   }
 
-  async login({ email, password }: LoginDto) {
-    const user = await this.usersService.findOneByEmail(email);
+  async login({ userName, password }: LoginDto) {
+    const user = await this.usersService.findOneByuserName(userName);
     if (!user) {
       throw new UnauthorizedException('El usuario no existe');
     }
@@ -38,13 +38,13 @@ export class AuthService {
       throw new UnauthorizedException('Contraseña incorrecta');
     }
 
-    const payload = { email: user.email };
+    const payload = { userName: user.userName };
 
     const tokend = await this.jwtService.signAsync(payload);
 
     return {
       tokend,
-      email,
+      userName,
     };
   }
 }
