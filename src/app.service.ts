@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Get, Injectable } from '@nestjs/common';
 
 @Injectable()
