@@ -1,10 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
 @Entity()
 export class productos {
+
   @PrimaryGeneratedColumn()
   id_producto: number;
-
+  
   @Column()
   Nombre_Producto: string;
 
@@ -25,4 +26,8 @@ export class productos {
 
   @Column({ type: 'double' })
   Precio_Unitario: number;
+
+  @ManyToMany(() => User, (User) => User.productos)
+  users: User[];
+
 }
