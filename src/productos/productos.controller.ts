@@ -28,10 +28,10 @@ export class ProductosController {
     return this.productosService.findAll();
   }
 
-  //@Get(':Nombre_Producto')
-  //findOne(@Param('Nombre_Producto') Nombre_Producto: string) {
-  //return this.productosService.findOne(Nombre_Producto);
-  //}
+  @Get(':Nombre_Producto')
+  findOne(@Param('Nombre_Producto') Nombre_Producto: string) {
+  return this.productosService.findOne(Nombre_Producto);
+  }
 
   @Patch(':id')
   update(

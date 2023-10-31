@@ -1,26 +1,77 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable , HttpException,HttpStatus } from '@nestjs/common';
 import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { productos } from './entities/producto.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductosService {
-  create(createProductoDto: CreateProductoDto) {
-    return 'This action adds a new producto';
+
+  constructor(@InjectRepository(productos) private productRepository:Repository<productos>){}
+
+  async  create(productos: CreateProductoDto) {
+    const product= await this.productRepository.findOne({
+      where:
+      {
+        Nombre_Producto:productos.Nombre_Producto
+      },
+    });
+
+    if(product)
+    {
+      return new HttpException('producto exisitente',HttpStatus.CONFLICT);
+    }
+    const NewProduct= this.productRepository.create(productos);
+    await this.productRepository.save(productos);
+   
   }
+
 
   findAll() {
-    return `This action returns all productos`;
+    return this.productRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} producto`;
+ async findOne(Nombre_Producto: string) {
+
+    const product= await this.productRepository.findOne({
+      where:
+      {
+        Nombre_Producto,
+      },
+    });
+
+    if(!product)
+    {
+      return new HttpException('producto no exisitente',HttpStatus.NOT_FOUND);
+    } 
+    return product;
   }
 
-  update(id: number, updateProductoDto: UpdateProductoDto) {
-    return `This action updates a #${id} producto`;
+  async update(id: number, updateProductoDto: UpdateProductoDto) {
+    const Product= await this.productRepository.findOne(
+      {
+        where:
+        {
+        id_producto:id,
+        },
+      });
+
+      if(!Product)
+      {
+        return new HttpException('producto no exisitente',HttpStatus.NOT_FOUND);
+      }
+
+      const updateProduct= Object.assign(Product,updateProductoDto);
+      return this.productRepository.save(updateProduct);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} producto`;
+  async remove(id: number) {
+    const product = await this.productRepository.delete(id);
+    if(!product)
+    {
+      return new HttpException('producto no exisitente',HttpStatus.NOT_FOUND);
+    }
+    return product;    
   }
 }

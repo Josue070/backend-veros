@@ -1,19 +1,25 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
+
+enum ProductoActivo
+{
+   Activo='Esta activo',
+   Inactivo='Esta inactivo'
+}
 @Entity()
 export class productos {
 
   @PrimaryGeneratedColumn()
   id_producto: number;
   
-  @Column()
+  @Column() 
   Nombre_Producto: string;
 
   @Column()
   Descripcion: string;
 
-  @Column({ type: 'bool' })
-  Estado: boolean;
+  @Column()
+  Estado: ProductoActivo;
 
   @Column({ type: 'int' })
   Stock: number;
@@ -26,6 +32,9 @@ export class productos {
 
   @Column({ type: 'double' })
   Precio_Unitario: number;
+
+  @Column()
+  Fecha_vencimiento:Date;
 
   @ManyToMany(() => User, (User) => User.productos)
   users: User[];
