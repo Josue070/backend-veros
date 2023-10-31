@@ -8,9 +8,9 @@ import { ProductosModule } from './productos/productos.module';
 import { AppService } from './app.service';
 import { AlmacenesModule } from './almacenes/almacenes.module';
 import { ProveedoresModule } from './proveedores/proveedores.module';
-import { CatalogoProductosModule } from './catalogo_productos/catalogo_productos.module';
 import { FamiliasModule } from './familias/familias.module';
 import { CategoriaModule } from './categoria/categoria.module';
+import { CatalogosModule } from './catalogos/catalogos.module';
 
 @Module({
   imports: [
@@ -29,9 +29,9 @@ import { CategoriaModule } from './categoria/categoria.module';
     ProductosModule,
     AlmacenesModule,
     ProveedoresModule,
-    CatalogoProductosModule,
     FamiliasModule,
     CategoriaModule,
+    CatalogosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
