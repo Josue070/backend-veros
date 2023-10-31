@@ -9,8 +9,8 @@ import { AppService } from './app.service';
 import { AlmacenesModule } from './almacenes/almacenes.module';
 import { ProveedoresModule } from './proveedores/proveedores.module';
 import { FamiliasModule } from './familias/familias.module';
-import { CategoriaModule } from './categoria/categoria.module';
 import { CatalogosModule } from './catalogos/catalogos.module';
+import { CategoriasModule } from './categorias/categorias.module';
 
 @Module({
   imports: [
@@ -30,8 +30,8 @@ import { CatalogosModule } from './catalogos/catalogos.module';
     AlmacenesModule,
     ProveedoresModule,
     FamiliasModule,
-    CategoriaModule,
     CatalogosModule,
+    CategoriasModule,
   ],
   controllers: [AppController],
   providers: [AppService],
